@@ -1,60 +1,84 @@
 public class Board {
-	int width = 6; //board width
-	int height = 5; //board height
-	char[] tileList = {'r', 'b', 'g', 'l', 'd', 'h'}; //list of possible tiles to be generated
-	//char[] tileList = {'r', 'b', 'g'}; //use for tricolor
-	Tile[][] board = new Tile[height][width];
+	//board width
+	int width = 6;
+	//board height
+	int height = 5;
+	//list of possible tiles to be generated
+	char[] tileList = {'r', 'b', 'g', 'l', 'd', 'h'};
+	//array of Tiles with size=width*height
+	Tile[] board = new Tile[width*height];
 	
+	/**
+	 * Default constructor for Board. Creates a randomized board state
+	 * with no matches.
+	 */
 	public Board() { 
 		randomizeBoard();
+	}
+	
+	/**
+	 * Displays the current board state as a 2d 6x5 grid
+	 * @return a string representing the board state
+	 */
+	public String toString() {
+		String strBoard = "";
+
+		for (int i=0; i<width; i++) {
+			for (int j=0; j<height; j++) {
+				strBoard += board[i*height+j].getType() + " ";
+			}
+			strBoard+= "\n";	
+		}
+		return strBoard;
+	}
+
+	/**
+	 * Displays the Tiles in the board as a singular string
+	 * @return a string of all Tiles
+	 */
+	public String toString2() {
+		String strBoard = "";
+
+		for (int i=0; i<width; i++) {
+			for (int j=0; j<height; j++) {
+				strBoard += board[i*height+j].getType();
+			}
+		}
+		return strBoard;
+	}
+	/**
+	 * Takes string of chars and creates a board state from it.
+	 * @param strBoard - string of chars board is built with
+	 * @throws IllegalArgumentException when width*height tiles are not provided
+	 */
+	public void setBoard(String strBoard) {
+		Tile newTile;
 		
-	}
-	
-	public String toString() { //returns board as a 2d grid
-		String strBoard = "";
-		for (Tile[] row : board) {
-			for (Tile tile : row) {
-				strBoard+=tile.getType() + " ";
-			}
-			strBoard+="\n";
-		}
-		return strBoard;
-	}
-	
-	public String toString2() { //returns board as a single line of characters
-		String strBoard = "";
-		for (Tile[] row : board) {
-			for (Tile tile : row) {
-				strBoard+=tile.getType();
-			}
-		}
-		return strBoard;
-	}
-	//Takes string of chars and converts it to board state. first 6 chars = top row, etc. Error if board is not filled.
-	public void setBoard(String strBoard) { 
-		int pos = 0;
-		if (strBoard.length()!=width*height) throw new IllegalArgumentException("Board must be completely filled");
-		for (int i = 0; i<board.length; i++) {
-			for (int j = 0; j<board[0].length; j++) {
-				board[i][j] = new Tile(strBoard.charAt(pos), pos);
-				pos++;
-			
+		for (int i=0; i<width; i++) {
+			for (int j=0; j<height; j++) {
+				newTile = new Tile(strBoard.charAt(i*height+j), new Point(i, j));
+				board[i*j] = newTile;
 			}
 		}
 	}
 	
-	public Tile[][] getBoard() {
+	public Tile[] getBoard() {
 		return board;
 	}
 	
+	/**
+	 * Generates a random board state from possible tiles.
+	 */
 	public void randomizeBoard() {
-		//figure out why its going to 25 and not 30??
-		for (int i = 0; i<board.length; i++) {
-			for (int j = 0; j<board[0].length; j++) {
-				board[i][j] = new Tile(tileList[(int) (Math.random()*tileList.length)], j+i*board.length);
-				System.out.println(j+i*board.length);
-				
-			
+		Tile newTile;
+		char randType;
+
+		for (int i=0; i<width; i++) {
+			for (int j=0; j<height; j++) {
+				randType = tileList[(int) (Math.random()*6)];
+				System.out.println("random type is " + randType);
+				newTile = new Tile(randType, new Point(i, j));
+				board[i*height+j] = newTile;
 			}
 		}
 	}

@@ -1,8 +1,10 @@
 public class Tile {
-	char type; //tile's color
-	int pos;
+	//Tile's color or element. Possible types defined in Board.
+	char type;
+	//Tile's position. (0,0) is bottom left, etc.
+	Point pos; 
 	
-	public Tile(char type, int pos) {
+	public Tile(char type, Point pos) {
 		this.type = type;
 		this.pos = pos;
 	}
@@ -11,15 +13,15 @@ public class Tile {
 		this.type = type;
 	}
 	
-	public void setPos(int pos) {
-		this.pos = pos;
+	public void setPos(Point p) {
+		this.pos = p;
 	}
 	
 	public char getType() {
 		return this.type;
 	}
 	
-	public int getPos() {
+	public Point getPos() {
 		return this.pos;
 	}
 }
