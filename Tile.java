@@ -1,27 +1,37 @@
 public class Tile {
 	//Tile's color or element. Possible types defined in Board.
-	char type;
-	//Tile's position. (0,0) is bottom left, etc.
-	Point pos; 
+	String type;
+	//Tile's position based on matrix
+	int row, col; 
 	
-	public Tile(char type, Point pos) {
+	public Tile(String type, int row, int col) {
 		this.type = type;
-		this.pos = pos;
+		this.row = row;
+		this.col = col;
 	}
 	
-	public void setType(char type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	
-	public void setPos(Point p) {
-		this.pos = p;
+	public void setPos(int row, int col) {
+		this.row = row;
+		this.col = col;
 	}
 	
-	public char getType() {
+	public String getType() {
 		return this.type;
 	}
 	
-	public Point getPos() {
-		return this.pos;
+	public int getRow() {
+		return this.row;
+	}
+
+	public int getCol() {
+		return this.col;
+	}
+
+	public String toString() {
+		return this.type;
 	}
 }
